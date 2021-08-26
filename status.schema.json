@@ -1,0 +1,133 @@
+{
+  "$id": "https://gbv.github.io/jskos-server/status.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Status",
+  "description": "Status endpoint for JSKOS API",
+  "required": ["ok", "config"],
+  "type": "object",
+  "definitions": {
+    "config": {
+      "allOf": [
+        {
+          "$ref": "https://gbv.github.io/jskos-server/config.schema.json"
+        },
+        {
+          "type": "object",
+          "required": [
+            "baseUrl",
+            "version",
+            "env"
+          ],
+          "properties": {
+            "version": {
+              "description": "The version of the JSKOS API specification that is used",
+              "type": "string"
+            },
+            "baseUrl": {
+              "description": "The baseUrl of the API",
+              "type": "string",
+              "format": "uri"
+            },
+            "mongo": false,
+            "verbosity": false,
+            "port": false,
+            "namespace": false,
+            "proxies": false,
+            "ips": false
+          }
+        }
+      ]
+    },
+    "uriOrNull": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "stringOrNull": {
+      "$comment": "format: uri is not used here because something like ?search={searchTerms} will not pass validation.",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "properties": {
+    "ok": {
+      "description": "Indicates that everything is working correctly, especially the database connection.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "config": {
+      "description": "Server configuration object",
+      "$ref": "#/definitions/config"
+    },
+    "schemes": {
+      "description": "API URL for concept schemes",
+      "$ref": "#/definitions/uriOrNull"
+    },
+    "top": {
+      "description": "API URL for top concepts",
+      "$ref": "#/definitions/uriOrNull"
+    },
+    "concepts": {
+      "description": "API URL for concepts",
+      "$ref": "#/definitions/uriOrNull"
+    },
+    "voc-suggest": {
+      "description": "API URL for vocabulary suggest",
+      "$ref": "#/definitions/stringOrNull"
+    },
+    "voc-search": {
+      "description": "API URL for vocabulary search",
+      "$ref": "#/definitions/stringOrNull"
+    },
+    "data": {
+      "description": "API URL for data",
+      "$ref": "#/definitions/uriOrNull"
+    },
+    "narrower": {
+      "description": "API URL for narrower concepts",
+      "$ref": "#/definitions/uriOrNull"
+    },
+    "ancestors": {
+      "description": "API URL for concept ancestors",
+      "$ref": "#/definitions/uriOrNull"
+    },
+    "suggest": {
+      "description": "API URL for concept suggest",
+      "$ref": "#/definitions/stringOrNull"
+    },
+    "search": {
+      "description": "API URL for concept search",
+      "$ref": "#/definitions/stringOrNull"
+    },
+    "concordances": {
+      "description": "API URL for concordances",
+      "$ref": "#/definitions/uriOrNull"
+    },
+    "mappings": {
+      "description": "API URL for mappings",
+      "$ref": "#/definitions/uriOrNull"
+    },
+    "annotations": {
+      "description": "API URL for annotations",
+      "$ref": "#/definitions/uriOrNull"
+    },
+    "types": {
+      "description": "API URL for types",
+      "$ref": "#/definitions/uriOrNull"
+    }
+  },
+  "additionalProperties": false
+}
